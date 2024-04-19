@@ -79,7 +79,7 @@ if (selected == 'Diabetes Prediction'):
 
 
 # Heart Disease Prediction Page
-if selected == 'Heart Disease Prediction':
+if (selected == 'Heart Disease Prediction'):
     
     # page title
     st.title('Heart Disease Prediction using ML')
@@ -127,30 +127,22 @@ if selected == 'Heart Disease Prediction':
         
         
      
+     
     # code for Prediction
     heart_diagnosis = ''
     
-    # Check if all input fields are filled
-    if all([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]):
-        # creating a button for Prediction
-        if st.button('Heart Disease Test Result'):
-            try:
-                # Convert input to floats and reshape
-                inputs = np.array([float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs), float(restecg), 
-                                   float(thalach), float(exang), float(oldpeak), float(slope), float(ca), float(thal)]).reshape(1, -1)
-                # Make prediction
-                heart_prediction = heart_disease_model.predict(inputs)
-                
-                if heart_prediction[0] == 1:
-                    heart_diagnosis = 'The person is having heart disease'
-                else:
-                    heart_diagnosis = 'The person does not have any heart disease'
-            except ValueError:
-                heart_diagnosis = 'Please enter valid numerical values for all input fields'
-    else:
-        heart_diagnosis = 'Please fill in all the input fields'
+    # creating a button for Prediction
+    
+    if st.button('Heart Disease Test Result'):
+        heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
+        
+        if (heart_prediction[0] == 1):
+          heart_diagnosis = 'The person is having heart disease'
+        else:
+          heart_diagnosis = 'The person does not have any heart disease'
         
     st.success(heart_diagnosis)
+        
     
     
 
