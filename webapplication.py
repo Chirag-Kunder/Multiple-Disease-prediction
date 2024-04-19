@@ -131,8 +131,9 @@ if selected == 'Heart Disease Prediction':
     # creating a button for Prediction
     if st.button('Heart Disease Test Result'):
         # Convert input to numeric
-        inputs = [float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs), float(restecg), float(thalach),
-                  float(exang), float(oldpeak), float(slope), float(ca), float(thal)]
+        inputs = [age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]
+        # Convert input values to floats
+        inputs = [float(val) for val in inputs]
         # Reshape inputs for prediction
         inputs = np.array(inputs).reshape(1, -1)
         # Make prediction
@@ -144,7 +145,6 @@ if selected == 'Heart Disease Prediction':
             heart_diagnosis = 'The person does not have any heart disease'
         
     st.success(heart_diagnosis)
-
     
     
 
