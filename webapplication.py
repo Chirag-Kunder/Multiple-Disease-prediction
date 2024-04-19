@@ -131,31 +131,19 @@ if selected == 'Heart Disease Prediction':
     
     # creating a button for Prediction
     if st.button('Heart Disease Test Result'):
-        # Convert input to floats
-        age = float(age) if age else 0.0
-        sex = float(sex) if sex else 0.0
-        cp = float(cp) if cp else 0.0
-        trestbps = float(trestbps) if trestbps else 0.0
-        chol = float(chol) if chol else 0.0
-        fbs = float(fbs) if fbs else 0.0
-        restecg = float(restecg) if restecg else 0.0
-        thalach = float(thalach) if thalach else 0.0
-        exang = float(exang) if exang else 0.0
-        oldpeak = float(oldpeak) if oldpeak else 0.0
-        slope = float(slope) if slope else 0.0
-        ca = float(ca) if ca else 0.0
-        thal = float(thal) if thal else 0.0
-        
-        # Reshape inputs for prediction
-        inputs = np.array([age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]).reshape(1, -1)
-        
-        # Make prediction
-        heart_prediction = heart_disease_model.predict(inputs)
-        
-        if heart_prediction[0] == 1:
-            heart_diagnosis = 'The person is having heart disease'
-        else:
-            heart_diagnosis = 'The person does not have any heart disease'
+        try:
+            # Convert input to floats and reshape
+            inputs = np.array([float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs), float(restecg), 
+                               float(thalach), float(exang), float(oldpeak), float(slope), float(ca), float(thal)]).reshape(1, -1)
+            # Make prediction
+            heart_prediction = heart_disease_model.predict(inputs)
+            
+            if heart_prediction[0] == 1:
+                heart_diagnosis = 'The person is having heart disease'
+            else:
+                heart_diagnosis = 'The person does not have any heart disease'
+        except ValueError:
+            heart_diagnosis = 'Please enter valid numerical values for all input fields'
         
     st.success(heart_diagnosis)
     
