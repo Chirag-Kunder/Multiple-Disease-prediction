@@ -76,8 +76,6 @@ if (selected == 'Diabetes Prediction'):
     st.success(diab_diagnosis)
 
 
-
-
 # Heart Disease Prediction Page
 if (selected == 'Heart Disease Prediction'):
     
@@ -127,22 +125,26 @@ if (selected == 'Heart Disease Prediction'):
         
         
      
-     
     # code for Prediction
     heart_diagnosis = ''
     
     # creating a button for Prediction
-    
     if st.button('Heart Disease Test Result'):
-        heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
+        # Convert input to numeric
+        inputs = [float(age), float(sex), float(cp), float(trestbps), float(chol), float(fbs), float(restecg), float(thalach),
+                  float(exang), float(oldpeak), float(slope), float(ca), float(thal)]
+        # Reshape inputs for prediction
+        inputs = np.array(inputs).reshape(1, -1)
+        # Make prediction
+        heart_prediction = heart_disease_model.predict(inputs)
         
-        if (heart_prediction[0] == 1):
-          heart_diagnosis = 'The person is having heart disease'
+        if heart_prediction[0] == 1:
+            heart_diagnosis = 'The person is having heart disease'
         else:
-          heart_diagnosis = 'The person does not have any heart disease'
+            heart_diagnosis = 'The person does not have any heart disease'
         
     st.success(heart_diagnosis)
-        
+
     
     
 
